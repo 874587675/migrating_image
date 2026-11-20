@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dfg.java_template.business.mapper.UserMapper">
+<mapper namespace="com.dfg.migrating_image.business.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dfg.java_template.business.entity.User">
+    <resultMap id="BaseResultMap" type="com.dfg.migrating_image.business.entity.User">
         <id column="user_id" property="userId" />
         <result column="open_id" property="openId" />
         <result column="user_name" property="userName" />

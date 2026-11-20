@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.io.Serializable;
-import com.dfg.java_template.business.entity.${entity};
+import com.dfg.migrating_image.business.entity.${entity};
 import java.io.Serial;
 
 <#assign moduleName = table.comment?substring(0, table.comment?length - 1)>

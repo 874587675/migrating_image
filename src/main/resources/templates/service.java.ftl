@@ -2,14 +2,14 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
-import com.dfg.java_template.business.param.page.vo.PageVO;
-import com.dfg.java_template.business.param.save.${entity}SaveParam;
-import com.dfg.java_template.business.param.update.${entity}UpdateParam;
-import com.dfg.java_template.business.param.list.${entity}ListParam;
-import com.dfg.java_template.business.param.query.${entity}QueryParam;
-import com.dfg.java_template.business.param.remove.RemoveBaseParam;
-import com.dfg.java_template.business.param.page.${entity}PageParam;
-import com.dfg.java_template.business.param.vo.${entity}VO;
+import com.dfg.migrating_image.business.param.page.vo.PageVO;
+import com.dfg.migrating_image.business.param.save.${entity}SaveParam;
+import com.dfg.migrating_image.business.param.update.${entity}UpdateParam;
+import com.dfg.migrating_image.business.param.list.${entity}ListParam;
+import com.dfg.migrating_image.business.param.query.${entity}QueryParam;
+import com.dfg.migrating_image.business.param.remove.RemoveBaseParam;
+import com.dfg.migrating_image.business.param.page.${entity}PageParam;
+import com.dfg.migrating_image.business.param.vo.${entity}VO;
 import java.util.List;
 <#assign moduleName = table.comment?substring(0, table.comment?length - 1)>
 /**

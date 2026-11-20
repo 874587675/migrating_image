@@ -12,12 +12,12 @@ package ${pagePackage};
 import ${pkg};
     </#if>
 </#list>
-import com.dfg.java_template.business.param.page.bo.PageBO;
+import com.dfg.migrating_image.business.param.page.bo.PageBO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import java.io.Serializable;
-import com.dfg.java_template.business.entity.${entity};
+import com.dfg.migrating_image.business.entity.${entity};
 import lombok.experimental.SuperBuilder;
 import java.io.Serial;
 

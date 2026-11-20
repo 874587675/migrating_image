@@ -3,10 +3,10 @@ package ${package.Convertor};
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import ${package.Entity}.${entity};
-import com.dfg.java_template.framework.generate.abstracts.AbstractConvertor;
-import com.dfg.java_template.business.param.save.${entity}SaveParam;
-import com.dfg.java_template.business.param.update.${entity}UpdateParam;
-import com.dfg.java_template.business.param.vo.${entity}VO;
+import com.dfg.migrating_image.framework.generate.abstracts.AbstractConvertor;
+import com.dfg.migrating_image.business.param.save.${entity}SaveParam;
+import com.dfg.migrating_image.business.param.update.${entity}UpdateParam;
+import com.dfg.migrating_image.business.param.vo.${entity}VO;
 
 import java.util.List;
 
