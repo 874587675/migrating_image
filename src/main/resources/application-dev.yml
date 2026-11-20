@@ -1,0 +1,178 @@
+management:
+  server:
+    port: 9080
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  health:
+    rabbit:
+      enabled: false
+    elasticsearch:
+      enabled: false
+
+server:
+  port: 9090 # 端口号
+  address: 0.0.0.0
+spring:
+  datasource: #数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.139.194.60:3306/print?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: mysql@Qq85238737
+    type: com.alibaba.druid.pool.DruidDataSource #使用Druid连接池
+  redis: #redis配置
+    database: 0
+    host: localhost
+    port: 6379
+#  rabbitmq: #rabbitMq配置
+#    host: localhost
+#    username: guest
+#    password: guest
+#    port: 5672
+#    virtual-host: /
+#    publisher-confirm-type: correlated
+#    publisher-returns: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual #手动确认
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      acks: all
+#    consumer:
+#      group-id: demo-group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      auto-offset-reset: earliest
+#      enable-auto-commit: false
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# 用户配置
+user:
+  password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间 单位分钟
+    lockTime: 10
+
+logging:
+  level:
+    springfox.documentation: WARN  #关闭 swagger INFO 日志
+
+knife4j:
+  enable: true #是否启用knife4j
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl #日志打印
+  global-config:
+    db-config:
+      column-format: "%s" #数据库字段格式化
+      logic-delete-field: is_deleted # 全局逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+      table-prefix: t_ # 表前缀
+      id-type: assign_uuid # 主键策略
+  mapper-locations: classpath*:/mapper/*.xml
+
+token:
+  token-param:
+    access-expire-time: 30 # 令牌有效期（单位：分钟） 默认30
+    refresh-expire-time: 1440 # 令牌有效期（单位：分钟） 默认1440
+    access-token: Access-Token # 令牌自定义标识
+    refresh-token: Refresh-Token # 令牌自定义标识
+    secret: abcdefghijklmnopqrstuvwxyz1234567890 # 令牌密钥
+
+#阿里云相关配置(Access要在系统变量中设置)
+aliyun:
+  accessparams:
+    KeyId: LTAI5tNdAfpSkhDVfqB5N5hY
+    KeySecret: xDKw3vs1TiG5884l8VNFvf1Vkcs5pu
+  smsparams:
+    UserPrincipalName: zgcbuild@1160848283821582.onaliyun.com
+    Password: q85238737
+    SignName: 个人博客张广成
+    TemplateCode: SMS_470400116
+    Endpoint: dysmsapi.aliyuncs.com
+    RegionId: cn-qingdao
+  ocrparams:
+    Endpoint: ocr-api.cn-hangzhou.aliyuncs.com
+    RegionId: cn-hangzhou
+
+#支付宝支付相关配置
+alipay:
+  payParams:
+    AppId: 9021000138628340
+    MerchantPrivateKey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCC0QkLuU2OEqQvUR5XH1G96G2KRHr+pRT7O6gcZVkrDtIMkBQLRRhPMWQhrQ0ufy4u9h9Y+n2UDnkfzFM6J9ArlMk3UP1QQqj34O35tUS1Ugl/I+arE6yKDBwbxvYGFdhVMGp0HCf+PEkRYKt3SCK8z4027j4cDlArMU5/5sSN1CQbMGE3Cx5LU2+e7Evl7gKVTQLprxgubOX0h+/uHo44tvYKNI1F82FBFSMInK85Uits0vE8NvuMH1k2r9qs/1I8wqjmGOiTnJ3dGZ59kaXlrpx094W7erj1ClQ99a+/mP4S5PtBrKF0Kh+NkcvSiXOYzAe4rzxKsmZUdYZ1RnolAgMBAAECggEAHIu62pkUCGWe+EhOQ5qs/rDifmKVKE4jtvL8qz2eaJvyUBV8mjz4ogdYH1Ug5D2SeWLx0jvO/WjvG3Y9zxny/h+YjP6aWFJDhtvJck0Q8jQ1qE3QPxKq+vDLjXAsLYXE0EohYLboLz0+gJFEuWG/Ws47tXnlib/B1LsMszJLP9txnOL4BGPCGk54TtgtfizX5C1/17dwK2Namhb2mtzB3uswhK/qR8fU0ZRgjC0ar9y0Siydk8RwbMBucNeFLAiYQMA34FVXGNtkI3DtGTpZ9tRr1bul51bK6wz6xA7EVCFHUCFgkyAOjIWV+NP2wiedzUWuftyXOjpE2sumxa2BIQKBgQDrimFZtQ3x7pQAm8871W6chedFLzgiWMky5DKFjqArTxb0mu72smVFR65Bo8RWOgMLcryAd/HBPMpB9P4J8bSegqS4AEJCPIsWnOEB7ofgVoDAVcBAivnYuoiq5SQl+HqSl5kBsecW9XOl1D/l0kog9aYHK+q+2Jur0FLwwa/V+QKBgQCOLfMnq07hwBrp8xVlKKPOzDDO1nTixfLtxUh/H4uesHdvOQZGApeRbqYfMhWkgPCkOwQGZJumTWI+mQiUnFPYIZNOPaf5fGs2LlGy6gUmXSOuJlmFZmiGsPnjCmvRlHdqOKO65k+ZIKQ1MSrPdjB3Q7FGXxCsp0f9f/2uU8KgjQKBgC+/FG7f4dzKFRxueTrS0CJQjooawVFNGDQFyCwEtnkxBiE9ivVdQmQh3LQXo4QrLFTUxFtydQJL9WAbbqfLZGbBauyVuNi+dx91W7NNjCOwxVa3y0oKIg2J+oxR+NrtnMM8kdqjGoov5WqXNQC8eSRnR2mqwGJBfIT+rOF7Ec7ZAoGAaQTXzj1jDqzvNE8xRn82P9HjW2RdAgRk4+wNGJkccCK4lZbxY1UWz32DhxdflRsIpMZSusYlkjkmkEZJaDvwUny6adhw8n9MUcD058qj8ypo6IG7LiXun06pxWI1MaEQc41SowLrWJgbso6WqJcMRYvirbAaiO0m58BaiSGlaSECgYAH7kBqW3aWgCx9Dguy3SxqK7NoZX6SnAobz8UEFatUTSByCHE7BZu7r+R8EUol6QWSb0YxRfX1X0UU3mJz8mypMPytS1i30KHn9I8zndTRu6f5cfmWMB4h49ZJdloV2si+kOhhm4UY3Se/5KMOJN0iSXbUM52OAQdJEuECnx/CeA==
+    AlipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApexvahz1cAD2NwDWWAul42nIwHnua2oKr+2iU5KvhCKu2jbFD8uEPrpU+vkCnCoRPjTsp6H+oxF7zQCA06lvUWM2kQkL7SSEjLN1o2P7LEfayVJRAZBqxCAbumSDezvk7qkcEMWHTBEt1l0ziPMeplFu1/wruwPwfqIHCcJb8EPjeMIrLywFIhbPGasgDTPoeK4x0iUHkxS/rMPRwhCUuBqUytyWDA4H7eAJyXObFxg2wLZO22t11zW7PoZaDCoswqQlJ5lNN1dgAkd/ejbnDDBxzcWW3IYEXbfXrVo9uUgK21s33yXjvaMf2JTRIc2OIsgGtiLBgY5xiqPooii0PwIDAQAB
+    GatewayUrl: https://openapi-sandbox.dl.alipaydev.com/gateway.do #沙箱环境
+    NotifyUrl: https://www.zgcbuild.top/  #异步通知地址
+    ReturnUrl: https://www.zgcbuild.top/pay/alipay/pc/return  #回调地址
+    SignType: RSA2  #签名类型
+    Charset: utf-8  #字符编码
+    Format: json  #返回格式
+    Version: 1.0  #版本号
+    #电脑PC支付：FAST_INSTANT_TRADE_PAY
+    #手机NATIVE支付：QUICK_WAP_WAY
+    #小程序JSAPI支付：JSAPI_PAY
+    ProductCode: QUICK_WAP_WAY #产品码 根据使用不同的支付场景更换产品码
+
+
+#微信支付相关配置
+wxpay:
+  payParams:
+    MerchantId: 1702163339  # 商户号
+    AppId: wx203c9cbc919eba1c   #AppId
+    AppSecret: e22594079c985ece5959c1c44c087878
+    PrivateKeyPath: wx_vip/apiclient_key.pem
+    PrivateCertPath: wx_vip/apiclient_cert.pem
+    PublicCertPath: wx_vip/pub_key.pem
+    PublicId: PUB_KEY_ID_0117021633392024121800458300000077
+    MerchantSerialNumber: 19D32C4DBD65C396629A65CBAB7B4B4B0EF83500  #平台序列号
+    ApiV3Key: e22594079c985ece5959c1c44c087878      #v3密钥
+    #后期还是写到类里面，方便管理
+    NotifyUrl: https://www.zgcbuild.top/api/pay/wx/wxnotify
+    ReturnUrl: https://www.zgcbuild.top/api/pay/wx/wxreturn
+#微信功能开发配置
+wechat:
+  miniapp:
+    app-id: wx6c8d4b15ce829b50   #AppId
+    app-secret: 40593e7bb329577a5f5641947d7711a8  #Secret密钥
+  mp:
+    app-id: wx6c8d4b15ce829b50   #AppId
+    app-secret: 40593e7bb329577a5f5641947d7711a8  #Secret密钥
+  open:
+    app-id: wx6c8d4b15ce829b50   #AppId
+    app-secret: 40593e7bb329577a5f5641947d7711a8  #Secret密钥
+
+#对象存储相关配置
+dromara:
+  x-file-storage: #文件存储配置
+    default-platform: minio-1 #默认使用的存储平台
+    thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
+    aliyun-oss:
+      - platform: aliyun-oss-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        accessKey: LTAI5tNdAfpSkhDVfqB5N5hY
+        secretKey: xDKw3vs1TiG5884l8VNFvf1Vkcs5pu
+        end-point: oss-cn-hangzhou.aliyuncs.com
+        bucket-name: zgcbuild
+        domain: https://zgcbuild.oss-cn-hangzhou.aliyuncs.com/ # 访问域名，注意“/”结尾，例如：https://abc.oss-cn-shanghai.aliyuncs.com/
+        base-path: zgcbuild/ # 基础路径
+    minio:
+      - platform: minio-1 # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key: 38O8QTLYKVO0E9OHT4DR
+        secret-key: c8pwia9vbc4JtqBHmMoM4lgvWxZsBPalQrvRRr26
+        end-point: http://localhost:9001
+        bucket-name: zgcbuild
+        domain: http://localhost:9001/zgcbuild/ # 访问域名，注意“/”结尾，

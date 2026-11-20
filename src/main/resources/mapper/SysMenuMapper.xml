@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dfg.java_template.business.mapper.SysMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dfg.java_template.business.entity.SysMenu">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_name" property="menuName" />
+        <result column="parent_id" property="parentId" />
+        <result column="menu_sort" property="menuSort" />
+        <result column="menu_type" property="menuType" />
+        <result column="path" property="path" />
+        <result column="component" property="component" />
+        <result column="route_name" property="routeName" />
+        <result column="visible" property="visible" />
+        <result column="status" property="status" />
+        <result column="icon" property="icon" />
+        <result column="is_frame" property="isFrame" />
+        <result column="permission" property="permission" />
+        <result column="remark" property="remark" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="delete_time" property="deleteTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        menu_id, menu_name, parent_id, menu_sort, menu_type, path, component, route_name, visible, status, icon, is_frame, permission, remark, create_user_id, create_time, update_user_id, update_time, is_deleted, delete_time
+    </sql>
+
+    <select id="selectPermissionByUserId" resultType="java.lang.String">
+        SELECT m.permission
+        FROM t_sys_menu as m
+        INNER JOIN t_sys_role_menu AS rm ON m.menu_id = rm.menu_id
+        INNER JOIN t_sys_user_role AS ur ON rm.role_id = ur.role_id
+        WHERE ur.user_id = #{userId}
+        AND m.is_deleted = 0 AND rm.is_deleted = 0 AND ur.is_deleted = 0 AND m.status = 1 AND m.visible = 1 AND m.menu_type = 3
+    </select>
+
+    <select id="selectMenuIdByUserId" resultMap="BaseResultMap">
+        SELECT DISTINCT m.menu_id
+        FROM t_sys_menu m
+                 INNER JOIN t_sys_role_menu rm ON m.menu_id = rm.menu_id
+                 INNER JOIN t_sys_user_role ur ON rm.role_id = ur.role_id
+        WHERE ur.user_id = #{userId}
+          AND m.menu_type IN (1, 2) -- 只查询目录和菜单
+          AND m.visible = 1         -- 菜单显示
+          AND m.status = 1          -- 菜单状态正常
+          AND m.is_deleted = 0      -- 菜单未删除
+          AND rm.is_deleted = 0     -- 角色菜单关联未删除
+          AND ur.is_deleted = 0     -- 用户角色关联未删除
+          AND m.parent_id = '0'     -- 查询顶级菜单
+        ORDER BY m.menu_sort ASC
+    </select>
+
+    <select id="selectSubMenuIdByUserId" resultMap="BaseResultMap">
+        SELECT DISTINCT m.menu_id
+        FROM t_sys_menu m
+        INNER JOIN t_sys_role_menu rm ON m.menu_id = rm.menu_id
+        INNER JOIN t_sys_user_role ur ON rm.role_id = ur.role_id
+        WHERE ur.user_id = #{userId}
+        AND m.menu_type = 2               -- 只查询菜单
+        AND m.visible = 1                 -- 菜单显示
+        AND m.status = 1                  -- 菜单状态正常
+        AND m.is_deleted = 0              -- 菜单未删除
+        AND rm.is_deleted = 0             -- 角色菜单关联未删除
+        AND ur.is_deleted = 0             -- 用户角色关联未删除
+        AND m.parent_id = #{parentId}     -- 查询顶级菜单
+        ORDER BY m.menu_sort ASC
+    </select>
+</mapper>
